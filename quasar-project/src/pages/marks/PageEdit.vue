@@ -124,12 +124,16 @@ export default defineComponent({
       })
     },
     addRow() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.data[this.editedIndex], this.editedItem);
-      } else {
-        this.data.push(this.editedItem);
-      }
-      this.close()
+        this.$axios.post('http://localhost:8000/api/marks',this.editedItem).then((response)=>{
+          if(response.statusText === "Created"){
+            this.triggerPositive();
+          }else{
+            this.triggerNegative();
+          }
+          this.getAll();
+        }).catch((e)=>{
+          console.log(e);
+      })
     }
   },mounted(){
 
