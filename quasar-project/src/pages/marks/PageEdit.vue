@@ -56,8 +56,29 @@
             </q-badge>
           </q-td>
           <q-td key="id" :props="props" style="padding: 0px; width: 40px;">
-            <q-btn round to="/edit" color="negative" @click="triggerPositive(),triggerNegative()"  icon="cancel" style="display: inline;"/> <span></span>
-            <a v-bind:href="'/#/create/'"><q-btn round color="positive" @click="triggerPositive" icon="edit" style="display: inline; "/></a>
+            <q-btn round  color="negative" @click="deleteRow(props.row.id)"  icon="cancel" style="display: inline;"/> <span></span>
+                  <!-- Edit Row -->
+                  <template style="display: inline">
+                    <q-btn dense color="secondary" label="Edit Row" icon="edit" @click="show_dialog = true" no-caps></q-btn>
+                    <div class="q-pa-sm q-gutter-sm" >
+                      <q-dialog v-model="show_dialog" >
+                        <q-card-section style="background-color:white">
+                        <q-card-section>
+                          <div class="text-h6" style="text-align:center;">Edit item!</div>
+                        </q-card-section>
+                          <div class="row">
+                            <q-input v-model="editedItem.avarage" label="Avarage"></q-input>
+                            <q-input v-model="editedItem.status" label="Status"></q-input>
+                            <q-input v-model="editedItem.grade" label="Grade"></q-input>
+                          </div>
+                          <q-card-actions align="right">
+                              <q-btn flat label="OK" color="primary" v-close-popup @click="updateRow(props.row.id)" ></q-btn>
+                          </q-card-actions>
+                        </q-card-section>
+                      </q-dialog>
+                    </div>
+                  </template>
+                  <!-- End Edit Row -->
           </q-td>
         </q-tr>
       </template>
@@ -80,17 +101,17 @@ export default defineComponent({
   setup(){
       const $q = useQuasar();
     return {
-      triggerPositive () {
+      triggerPositive (msg) {
         $q.notify({
           type: 'positive',
-          message: 'Record Added'
+          message: msg
         })
       },
 
       triggerNegative () {
         $q.notify({
           type: 'negative',
-          message: 'Record deleted!'
+          message: 'Request Failed!'
         })
       },
 
@@ -126,7 +147,7 @@ export default defineComponent({
     addRow() {
         this.$axios.post('http://localhost:8000/api/marks',this.editedItem).then((response)=>{
           if(response.statusText === "Created"){
-            this.triggerPositive();
+            this.triggerPositive(response.statusText);
           }else{
             this.triggerNegative();
           }
@@ -135,6 +156,30 @@ export default defineComponent({
           console.log(e);
       })
     }
+    ,deleteRow(i) {
+        this.$axios.delete('http://localhost:8000/api/marks/'+i).then((response)=>{
+          if(response.statusText === "OK"){
+            this.triggerPositive(response.statusText);
+          }else{
+            this.triggerNegative();
+          }
+          this.getAll();
+        }).catch((e)=>{
+          console.log(e);
+      })
+    }
+      ,updateRow(i) {
+      this.$axios.put('http://localhost:8000/api/marks/'+i,this.editedItem).then((response)=>{
+        if(response.statusText === "OK"){
+          this.triggerPositive(response.statusText);
+        }else{
+          this.triggerNegative();
+        }
+        this.getAll();
+      }).catch((e)=>{
+        console.log(e);
+    })
+  }
   },mounted(){
 
   },created(){
