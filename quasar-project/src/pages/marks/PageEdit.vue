@@ -1,4 +1,7 @@
 <template>
+      <q-card-section>
+          <div class="text-h6">Add new item!</div>
+      </q-card-section>
   <div class="q-pa-md">
     <q-table
       title="MARKS TABLE"
@@ -12,6 +15,29 @@
       table-header-class="bg-blue-8"
       dense
     >
+      <!-- Add Row -->
+      <template v-slot:top>
+        <q-btn dense color="secondary" label="Add Row" @click="show_dialog = true" no-caps></q-btn>
+        <div class="q-pa-sm q-gutter-sm" >
+          <q-dialog v-model="show_dialog" >
+            <q-card-section style="background-color:white">
+            <q-card-section>
+              <div class="text-h6" style="text-align:center;">Add new item!</div>
+            </q-card-section>
+              <div class="row">
+                <q-input v-model="editedItem.avarage" label="Avarage"></q-input>
+                <q-input v-model="editedItem.status" label="Status"></q-input>
+                <q-input v-model="editedItem.grade" label="Grade"></q-input>
+              </div>
+              <q-card-actions align="right">
+                  <q-btn flat label="OK" color="primary" v-close-popup @click="addRow" ></q-btn>
+              </q-card-actions>
+            </q-card-section>
+          </q-dialog>
+        </div>
+      </template>
+      <!-- End Add Row -->
+
       <template v-slot:body="props">
         <q-tr :props="props">
           <q-td key="avarage" :props="props">
@@ -73,8 +99,19 @@ export default defineComponent({
   data (){
     return{
       rows: [],
-      siya: "hi",
-      columns
+      columns,
+      show_dialog: false,
+      editedIndex: -1,
+      editedItem: {
+        status: "",
+        grade: "",
+        avarage: ""
+      },
+      defaultItem: {
+        status: "",
+        grade: "",
+        avarage: ""
+      }
       }
   },computed:{
 
@@ -86,11 +123,13 @@ export default defineComponent({
           console.log(e);
       })
     },
-    fun1(){
-      console.log("Log1");
-    },
-    fun2(){
-      console.log("Log2");
+    addRow() {
+      if (this.editedIndex > -1) {
+        Object.assign(this.data[this.editedIndex], this.editedItem);
+      } else {
+        this.data.push(this.editedItem);
+      }
+      this.close()
     }
   },mounted(){
 

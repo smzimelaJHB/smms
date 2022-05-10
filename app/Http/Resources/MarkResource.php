@@ -15,6 +15,7 @@ class MarkResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id'=>$this->id,
             'avarage'=>$this->avarage,
             'status'=>$this->status,
             'grade'=>$this->grade,
