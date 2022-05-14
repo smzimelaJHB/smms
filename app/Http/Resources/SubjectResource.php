@@ -10,13 +10,13 @@ class SubjectResource extends JsonResource
      * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     * @return array|\Illuminate\Contracts\Support\Array\JsonSerializable
      */
     public function toArray($request)
     {
         return [
-            'subjectcode'=>$this->subjectcode,
-            'subjectname'=>$this->subjectname,
+            'SubjectCode'=>$this->SubjectCode,
+            'SubjectName'=>$this->SubjectName,
         ];
     }
 }

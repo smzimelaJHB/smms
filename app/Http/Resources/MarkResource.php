@@ -10,15 +10,14 @@ class MarkResource extends JsonResource
      * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     * @return array|\Illuminate\Contracts\Support\Array\JsonSerializable
      */
     public function toArray($request)
     {
         return [
-            'id'=>$this->id,
-            'avarage'=>$this->avarage,
-            'status'=>$this->status,
+            'mystatus'=>$this->mystatus,
             'grade'=>$this->grade,
+            'SubjectCode'=>$this-> SubjectCode
         ];
     }
 }

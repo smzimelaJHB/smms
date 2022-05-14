@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateSubjectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('subjects', function (Blueprint $table) {
-            $table->id();
-            $table->string('SubjectCode')->unique();
-            $table->string('SubjectName');
-            $table->timestamps();
+            $table->string('SubjectCode', 20)->primary();
+            $table->string('SubjectName', 20);
+            $table->timestamp('created_at')->nullable()->useCurrent();
+            $table->softDeletes()->useCurrent();
+            $table->timestamp('updated_at')->nullable()->useCurrent();
         });
     }
 
@@ -30,4 +31,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('subjects');
     }
-};
+}

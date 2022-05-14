@@ -10,15 +10,17 @@ class TeacherResource extends JsonResource
      * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     * @return array|\Illuminate\Contracts\Support\Array\JsonSerializable
      */
     public function toArray($request)
     {
         return [
-            'employeeid'=>$this->employeeid,
-            'name'=>$this->name,
+            'EmployeeID'=>$this->EmployeeID,
+            'FullName'=>$this->FullName,
             'email'=>$this->email,
-            'password'=>$this->password
+            'cell'=>$this->cell,
+            'pass'=>$this->pass,
+            'SubjectCode'=>$this->SubjectCode
         ];
     }
 }

@@ -1,64 +1,40 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Subject;
+use  App\Http\Resources\SubjectCollection;
+use  App\Http\Resources\SubjectResource;
+use App\Models\Subjects;
 use Illuminate\Http\Request;
 
 class SubjectController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        return response()->json(new SubjectCollection(Subjects::all(),200));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+
+        $Subjects = Subjects::create($request->only(['SubjectName','SubjectCode']));
+        return new SubjectResource($Subjects);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Subject  $subject
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Subject $subject)
+    public function show(Subjects $Subjects)
     {
-        //
+        return new SubjectResource($Subjects);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Subject  $subject
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Subject $subject)
+    public function update(Request $request, Subjects $Subjects)
     {
-        //
+        $Subjects->update($request->only(['SubjectName','SubjectCode']));
+        return new SubjectResource($Subjects);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Subject  $subject
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Subject $subject)
+    public function destroy(Subjects $Subjects)
     {
-        //
+        $Subjects -> delete();
+        return response()->json(null,200);
     }
 }

@@ -1,64 +1,40 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Student;
+use  App\Http\Resources\StudentCollection;
+use  App\Http\Resources\StudentResource;
+use App\Models\Students;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        return response()->json(new StudentCollection(Students::all(),200));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+
+        $Students = Students::create($request->only(['StudentName','StudentCode']));
+        return new StudentResource($Students);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Student  $student
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Student $student)
+    public function show(Students $Students)
     {
-        //
+        return new StudentResource($Students);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Student  $student
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Student $student)
+    public function update(Request $request, Students $Students)
     {
-        //
+        $Students->update($request->only(['StudentName','StudentCode']));
+        return new StudentResource($Students);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Student  $student
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Student $student)
+    public function destroy(Students $Students)
     {
-        //
+        $Students -> delete();
+        return response()->json(null,200);
     }
 }

@@ -8,14 +8,14 @@ const routes = [{
                     import ('pages/IndexPage.vue')
             },
             {
-                path: '/create/',
+                path: '/marks/',
                 component: () =>
-                    import ('pages/marks/PageCreate.vue')
+                    import ('pages/marks/PageIndex.vue')
             },
             {
-                path: '/edit/',
+                path: '/subjects/',
                 component: () =>
-                    import ('pages/marks/PageEdit.vue')
+                  import ('pages/subjects/PageIndex.vue')
             }
         ]
     },

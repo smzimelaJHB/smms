@@ -46,8 +46,8 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
+import { defineComponent, ref } from 'vue'
 
 const linksList = [
     {
@@ -57,15 +57,15 @@ const linksList = [
     target: "_self"
   },
   {
-    title: 'Create',
+    title: 'Marks',
     icon: 'book',
-    link: '#/create',
+    link: '#/marks',
     target: "_self"
   },
   {
-    title: 'Edit',
+    title: 'Subjects',
     icon: 'edit',
-    link: '#/edit',
+    link: '#/subjects',
     target: "_self"
   }
 ]
