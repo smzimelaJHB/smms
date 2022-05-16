@@ -1,0 +1,4 @@
+Starting Laravel development server: http://127.0.0.1:8000
+[Mon May 16 10:22:38 2022] Failed to listen on 127.0.0.1:8000 (reason: Address already in use)
+Starting Laravel development server: http://127.0.0.1:8001
+[Mon May 16 10:22:38 2022] PHP 8.1.5 Development Server (http://127.0.0.1:8001) started

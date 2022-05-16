@@ -15,7 +15,7 @@ import axios from "axios";
 import { onMounted, reactive, ref } from "vue";
 
 let loadcomplete = ref(false);
-let rows = ref([]);
+let rows = ref(["old"]);
 
 const columns = reactive([
   {
@@ -34,15 +34,12 @@ const columns = reactive([
   },
 ]);
 
-const getAll = async () => {
+let getAll = async () => {
   await axios
     .get("http://localhost:8000/api/subjects")
     .then((response) => {
-      setTimeout(() => {
         response ? (loadcomplete.value = true) : (loadcomplete.value = false);
         rows = response.data.data;
-        console.log(rows);
-      }, 2000);
     })
     .catch((e) => {
       console.log(e);
