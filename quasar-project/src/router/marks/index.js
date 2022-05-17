@@ -7,7 +7,7 @@ const marks =
         {
             path: '/marks/',
             component: () =>
-              import ('pages/marks/PageIndex.vue')
+              import ('pages/marks/index.vue')
         }
       ]
 }

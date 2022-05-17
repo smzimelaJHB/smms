@@ -17,8 +17,9 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+//section students
 Route::apiResource('students',StudentController::class);
+//section teachers
 Route::apiResource('teachers',TeacherController::class);
 Route::apiResource('marks',MarkController::class);
 Route::apiResource('subjects',SubjectController::class);

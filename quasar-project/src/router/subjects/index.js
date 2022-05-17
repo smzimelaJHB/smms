@@ -7,7 +7,7 @@ const subjects =
         {
             path: '/subjects/',
             component: () =>
-            import ('pages/subjects/PageIndex.vue')
+            import ('pages/subjects/index.vue')
         }
       ]
 }

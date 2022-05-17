@@ -4,7 +4,7 @@
       </q-card-section>
   <div class="q-pa-md">
     <q-table
-      title="Subjects"
+      title="MARKS TABLE"
       :rows="rows"
       :columns="columns"
       row-key="name"
@@ -25,8 +25,9 @@
               <div class="text-h6" style="text-align:center;">Add new item!</div>
             </q-card-section>
               <div class="row">
-                <q-input v-model="editedItem.SubjectCode" label="Subject Code"></q-input>
-                <q-input v-model="editedItem.SubjectName" label="Subject Name"></q-input>
+                <q-input v-model="editedItem.avarage" label="Avarage"></q-input>
+                <q-input v-model="editedItem.status" label="Status"></q-input>
+                <q-input v-model="editedItem.grade" label="Grade"></q-input>
               </div>
               <q-card-actions align="right">
                   <q-btn flat label="OK" color="primary" v-close-popup @click="addRow" ></q-btn>
@@ -39,14 +40,19 @@
 
       <template v-slot:body="props">
         <q-tr :props="props">
-          <q-td key="SubjectCode" :props="props">
+          <q-td key="avarage" :props="props">
             <q-badge color="green" style="color:black; padding: 20px; display: flex; justify-content: center;">
-              {{ props.row.SubjectCode }}
+              {{ props.row.avarage }}
             </q-badge>
           </q-td>
-          <q-td key="SubjectName" :props="props">
+          <q-td key="status" :props="props">
+            <q-badge color="purple" style="color:black; padding: 20px; display: flex; justify-content: center;">
+              {{ props.row.status }}
+            </q-badge>
+          </q-td>
+          <q-td key="grade" :props="props">
             <q-badge color="orange" style="color:black; padding: 20px; display: flex; justify-content: center;">
-              {{ props.row.SubjectName }}
+              {{ props.row.grade }}
             </q-badge>
           </q-td>
           <q-td key="id" :props="props" style="padding: 0px; width: 40px;">
@@ -61,11 +67,12 @@
                           <div class="text-h6" style="text-align:center;">Edit item!</div>
                         </q-card-section>
                           <div class="row">
-                            <q-input v-model="editedItem.SubjectCode" label="SubjectCode"></q-input>
-                            <q-input v-model="editedItem.SubjectName" label="SubjectName"></q-input>
+                            <q-input v-model="editedItem.avarage" label="Avarage"></q-input>
+                            <q-input v-model="editedItem.status" label="Status"></q-input>
+                            <q-input v-model="editedItem.grade" label="Grade"></q-input>
                           </div>
                           <q-card-actions align="right">
-                              <q-btn flat label="OK" color="primary" v-close-popup @click="updateRow(props.row.SubjectCode)" ></q-btn>
+                              <q-btn flat label="OK" color="primary" v-close-popup @click="updateRow(props.row.id)" ></q-btn>
                           </q-card-actions>
                         </q-card-section>
                       </q-dialog>
@@ -79,102 +86,97 @@
   </div>
 </template>
 
-<script >
-import { useQuasar } from 'quasar';
-import { defineComponent } from 'vue';
+<script setup>
+import { defineComponent } from 'vue'
+import axios from 'axios'
+import { useQuasar } from 'quasar'
+import { ref } from 'vue'
 
-const columns = [
-  { label: 'Subject Code', field: 'SubjectCode', name: 'SubjectCode', align: 'center' ,headerStyle: {fontSize: '1.5em'}},
-  { label: 'Subject Name', field: 'SubjectName', name: 'SubjectName', align: 'center',headerStyle: {fontSize: '1.5em'}},
-]
-export default defineComponent({
-  name: 'App',
-  setup(){
-      const $q = useQuasar();
-    return {
-      triggerPositive (msg) {
+const columns = ref([
+  { label: 'AVARAGE', field: 'avarage', name: 'avarage', align: 'center' ,headerStyle: {fontSize: '1.5em'}},
+  { label: 'STATUS', field: 'status', name: 'status', align: 'center',headerStyle: {fontSize: '1.5em'}},
+  { label: 'GRADE', field: 'grade', name: 'grade', align: 'center',headerStyle: {fontSize: '1.5em'}},
+  { label: '', field: 'id', name: 'id', align: 'left',headerStyle: {fontSize: '1.5em'}}
+])
+
+    const $q = useQuasar();
+
+    const triggerPositive =(msg)=> {
         $q.notify({
           type: 'positive',
           message: msg
         })
-      },
+      }
 
-      triggerNegative () {
+    const triggerNegative = () =>{
         $q.notify({
           type: 'negative',
           message: 'Request Failed!'
         })
-      },
-
-    }
-  },
-  data (){
-    return{
-      rows: [],
-      columns,
-      show_dialog: false,
-      editedIndex: -1,
-      editedItem: {
-        SubjectName: "",
-        SubjectCode: ""
-      },
-      defaultItem: {
-        SubjectName: "",
-        SubjectCode: ""
       }
-      }
-  },computed:{
 
-  },methods:{
-        getAll(){
-        this.$axios.get('http://localhost:8000/api/subjects').then((response)=>{
-        this.rows = response.data.data;
+
+      const rows = ref([])
+      const show_dialog =ref(false)
+      const editedIndex =ref(-1)
+      const editedItem = ref({
+        status: "",
+        grade: "",
+        avarage: ""
+      })
+
+      const defaultItem = ref({
+        status: "",
+        grade: "",
+        avarage: ""
+      })
+
+      const getAll = ()=>{
+        axios.get('http://localhost:8000/api/marks').then((response)=>{
+         rows.value = response.data.data;
         }).catch((e)=>{
           console.log(e);
       })
-    },
-    addRow() {
-        this.$axios.post('http://localhost:8000/api/subjects',this.editedItem).then((response)=>{
-          if(response.statusText === "Created" || response.statusText === "Ok"){
-            this.triggerPositive(response.statusText);
+    }
+
+    const addRow = ()=> {
+          axios.post('http://localhost:8000/api/marks',this.editedItem).then((response)=>{
+          if(response.statusText === "Created"){
+            triggerPositive(response.statusText);
           }else{
             this.triggerNegative();
           }
-          this.getAll();
+          getAll();
         }).catch((e)=>{
           console.log(e);
       })
     }
-    ,deleteRow(i) {
-        this.$axios.delete('http://localhost:8000/api/subjects/'+i).then((response)=>{
+    const deleteRow =(i)=> {
+            axios.delete('http://localhost:8000/api/marks/'+i).then((response)=>{
           if(response.statusText === "OK"){
-            this.triggerPositive(response.statusText);
+            triggerPositive(response.statusText);
           }else{
-            this.triggerNegative();
+             triggerNegative();
           }
-          this.getAll();
+           getAll();
         }).catch((e)=>{
           console.log(e);
       })
-    }
-      ,updateRow(i) {
-      this.$axios.put('http://localhost:8000/api/subjects/'+i,this.editedItem).then((response)=>{
+   }
+
+   const updateRow =(i)=> {
+       axios.put('http://localhost:8000/api/marks/'+i,this.editedItem).then((response)=>{
         if(response.statusText === "OK"){
-          this.triggerPositive(response.statusText);
+          triggerPositive(response.statusText);
         }else{
-          this.triggerNegative();
+           triggerNegative();
         }
-        this.getAll();
+         getAll();
       }).catch((e)=>{
         console.log(e);
     })
   }
-  },mounted(){
 
-  },created(){
-    this.getAll()
-  }
-  })
 </script>
 
 
