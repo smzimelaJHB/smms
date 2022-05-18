@@ -87,10 +87,9 @@
 </template>
 
 <script setup>
-import { defineComponent } from 'vue'
-import axios from 'axios'
-import { useQuasar } from 'quasar'
-import { ref } from 'vue'
+import axios from 'axios';
+import { useQuasar } from 'quasar';
+import { ref } from 'vue';
 
 const columns = ref([
   { label: 'AVARAGE', field: 'avarage', name: 'avarage', align: 'center' ,headerStyle: {fontSize: '1.5em'}},
@@ -178,5 +177,10 @@ const columns = ref([
   }
 
 </script>
+
+
+
+
+
 
 

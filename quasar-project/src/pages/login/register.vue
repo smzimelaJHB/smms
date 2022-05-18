@@ -1,40 +1,31 @@
-<template>
-  <div class="position">
+<template lang="pug">
+.position
+  q-form.q-gutter-md(@submit="onSubmit")
+    q-input(type="text",filled,v-model="formData.fullName",label="Full Names" required)
+    q-input(type="email",filled,v-model="formData.email",label="Email" required)
+    q-input(type="number",filled,v-model="formData.IDNumber",label="ID Number" required)
+    q-input(type="number",filled,v-model="formData.Cell",label="Cell" required)
 
-    <q-form
-      @submit="onSubmit"
-      @reset="onReset"
-      class="q-gutter-md"
-    >
-      <q-input
-        filled
-        v-model="name"
-        label="Your name *"
-        hint="Name and surname"
-        lazy-rules
-        :rules="[ val => val && val.length > 0 || 'Please type something']"
-      />
+    .q-pa-md
+      .q-gutter-sm()
+        q-radio(v-model="formData.gender",checked-icon="task_alt",unchecked-icon="panorama_fish_eye",val="f",label="Female")
+        q-radio(v-model="formData.gender",checked-icon="task_alt",unchecked-icon="panorama_fish_eye",val="o",label="Other")
+        q-radio(v-model="formData.gender",checked-icon="task_alt",unchecked-icon="panorama_fish_eye",val="m",label="Male")
 
-      <q-input
-        filled
-        type="number"
-        v-model="age"
-        label="Your age *"
-        lazy-rules
-        :rules="[
-          val => val !== null && val !== '' || 'Please type your age',
-          val => val > 0 && val < 100 || 'Please type a real age'
-        ]"
-      />
 
-      <q-toggle v-model="accept" label="I accept the license and terms" />
+    //- 1st password field
+    q-input(v-show="my_type",type="password",filled,v-model="formData.password",label="Password" required)
+    q-input(v-show="!my_type",type="text",filled,v-model="formData.password",label="Password")
 
-      <div>
-        <q-btn label="Submit" type="submit" color="primary"/>
-      </div>
-    </q-form>
+    //- 2nd password field
+    q-input(v-show="my_type",type="password",filled,v-model="formData.password2",label="Repeat Password" required)
+    q-input(v-show="!my_type",type="text",filled,v-model="formData.password2",label="Repeat Password")
 
-  </div>
+    q-toggle(v-model="formData.viewPass",@click="show_pass",label="show password" color="pink",,style="float:left;")
+
+    q-btn(color='blue',type="submit",label="Submit",style="float:right;")
+
+
 </template>
 
 <style>
@@ -44,50 +35,41 @@
     justify-content: center;
     margin-top: 5%;
   }
+  form{
+    min-width: 50%;
+  }
+
 </style>
 
-<script>
-import { useQuasar } from 'quasar'
-import { ref } from 'vue'
 
-export default {
-  setup () {
-    const $q = useQuasar()
+<script setup>
+import { onMounted, reactive, ref } from 'vue';
 
-    const name = ref(null)
-    const age = ref(null)
-    const accept = ref(false)
+const formData =
+        reactive({
+            email:"",
+            password:"",
+            password2:"",
+            remember:false,
+            viewPass:false,
+            IDNumber:"",
+            Cell:"",
+            gender:"m",
+            row:""
+         })
 
-    return {
-      name,
-      age,
-      accept,
+const my_type = ref(true)
 
-      onSubmit () {
-        if (accept.value !== true) {
-          $q.notify({
-            color: 'red-5',
-            textColor: 'white',
-            icon: 'warning',
-            message: 'You need to accept the license and terms first'
-          })
-        }
-        else {
-          $q.notify({
-            color: 'green-4',
-            textColor: 'white',
-            icon: 'cloud_done',
-            message: 'Submitted'
-          })
-        }
-      },
-
-      onReset () {
-        name.value = null
-        age.value = null
-        accept.value = false
-      }
-    }
-  }
+const onSubmit =()=>{
+     console.log(formData)
 }
+
+const show_pass = ()=>{
+  my_type.value = !my_type.value
+}
+
+onMounted(()=>{
+
+})
+
 </script>
