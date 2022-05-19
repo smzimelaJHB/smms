@@ -45,8 +45,7 @@
 <script setup>
 import { onMounted, reactive, ref } from 'vue';
 
-const formData =
-        reactive({
+const formData = reactive({
             email:"",
             password:"",
             password2:"",
