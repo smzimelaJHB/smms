@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class EssayCollection extends ResourceCollection
+class ExamCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -14,6 +14,10 @@ class EssayCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'data'=>$this->collection,
+            'version'=>'0.1',
+            'Author'=>'Siya'
+        ];
     }
 }

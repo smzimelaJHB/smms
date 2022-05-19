@@ -14,7 +14,9 @@ class AddForeignKeysToTeachersTable extends Migration
     public function up()
     {
         Schema::table('teachers', function (Blueprint $table) {
-            $table->foreign(['SubjectCode'], 'teachers_ibfk_1')->references(['SubjectCode'])->on('subjects')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreign(['subjectName'], 'teachers_ibfk_1')->references(['SubjectCode'])->on('subjects')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreign(['schoolName'], 'teachers_ibfk_2')->references(['schoolName'])->on('schools')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreign(['studentName'], 'teachers_ibfk_3')->references(['idNumber'])->on('students')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 
@@ -27,6 +29,8 @@ class AddForeignKeysToTeachersTable extends Migration
     {
         Schema::table('teachers', function (Blueprint $table) {
             $table->dropForeign('teachers_ibfk_1');
+            $table->dropForeign('teachers_ibfk_2');
+            $table->dropForeign('teachers_ibfk_3');
         });
     }
 }

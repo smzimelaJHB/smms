@@ -5,15 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property string $EmployeeID
- * @property string $name
- * @property string $pass
+ * @property string $employeeID
+ * @property string $position
+ * @property string $schoolName
+ * @property string $studentName
+ * @property string $subjectName
+ * @property string $password
+ * @property string $idNumber
+ * @property string $gender
+ * @property string $password
  * @property string $email
  * @property string $cell
- * @property string $FullName
- * @property string $SubjectCode
- * @property int    $created_at
+ * @property string $email
+ * @property string $EmployeeID
+ * @property string $name
+ * @property int    $updated_at
  * @property int    $deleted_at
+ * @property int    $created_at
+ * @property int    $created_at
  * @property int    $updated_at
  */
 class Teachers extends Model
@@ -30,7 +39,7 @@ class Teachers extends Model
      *
      * @var string
      */
-    protected $primaryKey = 'EmployeeID';
+    protected $primaryKey = 'employeeID';
 
     /**
      * Attributes that should be mass-assignable.
@@ -38,8 +47,7 @@ class Teachers extends Model
      * @var array
      */
     protected $fillable = [
-        'EmployeeID','pass', 'EmployeeID', 'email',
-        'cell', 'created_at', 'deleted_at','FullName','SubjectCode', 'updated_at'
+        'position', 'schoolName', 'studentName', 'subjectName', 'updated_at', 'password', 'idNumber', 'gender', 'password', 'email', 'deleted_at', 'created_at', 'cell', 'created_at', 'email', 'EmployeeID', 'name', 'updated_at'
     ];
 
     /**
@@ -57,11 +65,7 @@ class Teachers extends Model
      * @var array
      */
     protected $casts = [
-        'EmployeeID' => 'string', 'password' => 'string',
-        'cell' => 'string', 'created_at' => 'timestamp', 'deleted_at'
-        => 'timestamp', 'email' => 'string',
-        'FullName' => 'string', 'pass' => 'string', 'SubjectCode' =>
-        'string'
+        'employeeID' => 'string', 'position' => 'string', 'schoolName' => 'string', 'studentName' => 'string', 'subjectName' => 'string', 'updated_at' => 'timestamp', 'password' => 'string', 'idNumber' => 'string', 'gender' => 'string', 'password' => 'string', 'email' => 'string', 'deleted_at' => 'timestamp', 'created_at' => 'timestamp', 'cell' => 'string', 'created_at' => 'timestamp', 'email' => 'string', 'EmployeeID' => 'string', 'name' => 'string', 'updated_at' => 'timestamp'
     ];
 
     /**
@@ -70,7 +74,7 @@ class Teachers extends Model
      * @var array
      */
     protected $dates = [
-        'created_at', 'deleted_at', 'updated_at'
+        'updated_at', 'deleted_at', 'created_at', 'created_at', 'updated_at'
     ];
 
     /**

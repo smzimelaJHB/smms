@@ -17,7 +17,7 @@ class StudentController extends Controller
     public function store(Request $request)
     {
 
-        $Students = Students::create($request->only(['StudentName','StudentCode']));
+        $Students = Students::create($request->only(['idNumber','subjectName', 'password', 'gender', 'fullName','cell', 'email','age']));
         return new StudentResource($Students);
     }
 
@@ -28,7 +28,7 @@ class StudentController extends Controller
 
     public function update(Request $request, Students $Students)
     {
-        $Students->update($request->only(['StudentName','StudentCode']));
+        $Students->update($request->only(['subjectName', 'password', 'gender', 'fullName','cell', 'email','age']));
         return new StudentResource($Students);
     }
 

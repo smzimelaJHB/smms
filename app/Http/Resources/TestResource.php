@@ -4,20 +4,19 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MarkResource extends JsonResource
+class TestResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return array|\Illuminate\Contracts\Support\Array\JsonSerializable
+     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
     {
         return [
-            'mystatus'=>$this->mystatus,
             'grade'=>$this->grade,
-            'SubjectCode'=>$this-> SubjectCode
+            'subjectName'=>$this->subjectName,
         ];
     }
 }

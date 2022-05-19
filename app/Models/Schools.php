@@ -5,31 +5,29 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property string $SubjectCode
- * @property string $SubjectCode
- * @property string $SubjectName
- * @property string $SubjectName
- * @property int    $created_at
- * @property int    $updated_at
+ * @property string $schoolName
+ * @property string $adress
+ * @property string $email
+ * @property string $tel
  * @property int    $created_at
  * @property int    $deleted_at
  * @property int    $updated_at
  */
-class Subjects extends Model
+class Schools extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'subjects';
+    protected $table = 'schools';
 
     /**
      * The primary key for the model.
      *
      * @var string
      */
-    protected $primaryKey = 'SubjectCode';
+    protected $primaryKey = 'schoolName';
 
     /**
      * Attributes that should be mass-assignable.
@@ -37,7 +35,7 @@ class Subjects extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'created_at', 'SubjectName', 'updated_at', 'created_at', 'deleted_at', 'SubjectName', 'updated_at'
+        'schoolName','address', 'created_at', 'deleted_at', 'email', 'tel', 'updated_at'
     ];
 
     /**
@@ -55,7 +53,7 @@ class Subjects extends Model
      * @var array
      */
     protected $casts = [
-        'SubjectCode' => 'string', 'SubjectCode' => 'string', 'created_at' => 'timestamp', 'SubjectName' => 'string', 'updated_at' => 'timestamp', 'created_at' => 'timestamp', 'deleted_at' => 'timestamp', 'SubjectName' => 'string', 'updated_at' => 'timestamp'
+        'schoolName' => 'string', 'address' => 'string', 'created_at' => 'timestamp', 'deleted_at' => 'timestamp', 'email' => 'string', 'tel' => 'string', 'updated_at' => 'timestamp'
     ];
 
     /**
@@ -64,7 +62,7 @@ class Subjects extends Model
      * @var array
      */
     protected $dates = [
-        'created_at', 'updated_at', 'created_at', 'deleted_at', 'updated_at'
+        'created_at', 'deleted_at', 'updated_at'
     ];
 
     /**

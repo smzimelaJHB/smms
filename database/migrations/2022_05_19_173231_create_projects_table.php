@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMarksTable extends Migration
+class CreateProjectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateMarksTable extends Migration
      */
     public function up()
     {
-        Schema::create('marks', function (Blueprint $table) {
+        Schema::create('projects', function (Blueprint $table) {
             $table->smallInteger('id', true);
-            $table->string('SubjectCode', 20)->index('SubjectCode');
-            $table->decimal('grade', 3, 0);
-            $table->char('mystatus', 1);
+            $table->string('projectName', 80);
+            $table->decimal('grade', 3, 0)->nullable();
+            $table->string('subjectName', 20)->index('subjectName');
             $table->timestamp('created_at')->nullable()->useCurrent();
             $table->softDeletes()->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrent();
@@ -31,6 +31,6 @@ class CreateMarksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('marks');
+        Schema::dropIfExists('projects');
     }
 }

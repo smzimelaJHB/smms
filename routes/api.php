@@ -2,9 +2,12 @@
 
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
-use App\Http\Controllers\MarkController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SubjectController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\TestController;
+use App\Http\Controllers\ExamController;
+use App\Http\Controllers\AssessmentController;
+use App\Http\Controllers\SchoolController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,9 +20,12 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-//section students
+
 Route::apiResource('students',StudentController::class);
-//section teachers
 Route::apiResource('teachers',TeacherController::class);
-Route::apiResource('marks',MarkController::class);
+Route::apiResource('projects',ProjectController::class);
 Route::apiResource('subjects',SubjectController::class);
+Route::apiResource('schools',SchoolController::class);
+Route::apiResource('assessments',AssessmentController::class);
+Route::apiResource('exams',ExamController::class);
+Route::apiResource('tests',TestController::class);

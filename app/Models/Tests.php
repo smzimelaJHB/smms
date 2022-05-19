@@ -4,21 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/*
- * @property int    $grade
+/**
  * @property int    $created_at
  * @property int    $deleted_at
  * @property int    $updated_at
- * @property string $SubjectCode
+ * @property string $subjectName
  */
-class Marks extends Model
+class Tests extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'marks';
+    protected $table = 'tests';
 
     /**
      * The primary key for the model.
@@ -33,7 +32,7 @@ class Marks extends Model
      * @var array
      */
     protected $fillable = [
-        'mystatus', 'created_at', 'grade','deleted_at', 'grade', 'SubjectCode', 'updated_at'
+        'created_at', 'deleted_at', 'grade', 'subjectName', 'updated_at'
     ];
 
     /**
@@ -42,7 +41,7 @@ class Marks extends Model
      * @var array
      */
     protected $hidden = [
-
+        
     ];
 
     /**
@@ -51,7 +50,7 @@ class Marks extends Model
      * @var array
      */
     protected $casts = [
-         'created_at' => 'timestamp', 'grade' => 'int', 'deleted_at' => 'timestamp', 'SubjectCode' => 'string', 'updated_at' => 'timestamp'
+        'created_at' => 'timestamp', 'deleted_at' => 'timestamp', 'subjectName' => 'string', 'updated_at' => 'timestamp'
     ];
 
     /**
@@ -60,7 +59,7 @@ class Marks extends Model
      * @var array
      */
     protected $dates = [
-        'created_at', 'created_at', 'deleted_at'
+        'created_at', 'deleted_at', 'updated_at'
     ];
 
     /**

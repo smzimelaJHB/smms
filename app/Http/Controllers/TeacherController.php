@@ -1,64 +1,40 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Teacher;
+use  App\Http\Resources\TeacherCollection;
+use  App\Http\Resources\TeacherResource;
+use App\Models\Teachers;
 use Illuminate\Http\Request;
 
 class TeacherController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        return response()->json(new TeacherCollection(Teachers::all(),200));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+
+        $Teachers = Teachers::create($request->only(['employeeID','position','idNumber','subjectName', 'password', 'gender', 'fullName','cell', 'email','age']));
+        return new TeacherResource($Teachers);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Teacher  $teacher
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Teacher $teacher)
+    public function show(Teachers $Teachers)
     {
-        //
+        return new TeacherResource($Teachers);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Teacher  $teacher
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Teacher $teacher)
+    public function update(Request $request, Teachers $Teachers)
     {
-        //
+        $Teachers->update($request->only(['employeeID','position','subjectName', 'password', 'gender', 'fullName','cell', 'email','age']));
+        return new TeacherResource($Teachers);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Teacher  $teacher
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Teacher $teacher)
+    public function destroy(Teachers $Teachers)
     {
-        //
+        $Teachers -> delete();
+        return response()->json(null,200);
     }
 }

@@ -5,18 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property string $IDNumber
- * @property string $FullName
+ * @property string $idNumber
+ * @property string $subjectName
+ * @property string $password
+ * @property string $gender
+ * @property string $fullName
  * @property string $email
  * @property string $cell
- * @property string $gender
- * @property string $pass
- * @property string $SubjectCode
+ * @property string $email
+ * @property string $IDnumber
+ * @property string $name
+ * @property string $password
+ * @property string $surname
  * @property int    $updated_at
- * @property int    $age
+ * @property int    $created_at
  * @property int    $deleted_at
  * @property int    $created_at
-
+ * @property int    $age
+ * @property int    $age
+ * @property int    $updated_at
  */
 class Students extends Model
 {
@@ -32,7 +39,7 @@ class Students extends Model
      *
      * @var string
      */
-    protected $primaryKey = 'IDNumber';
+    protected $primaryKey = 'idNumber';
 
     /**
      * Attributes that should be mass-assignable.
@@ -40,8 +47,7 @@ class Students extends Model
      * @var array
      */
     protected $fillable = [
-        'IDNumber', 'FullName', 'email', 'age', 'deleted_at', 'created_at',
-        'cell', 'gender', 'pass', 'SubjectCode', 'updated_at'
+        'idNumber','subjectName', 'password', 'gender', 'fullName','cell', 'email','age'
     ];
 
     /**
@@ -59,11 +65,7 @@ class Students extends Model
      * @var array
      */
     protected $casts = [
-        'IDNumber' => 'string', 'updated_at' => 'timestamp', 'FullName' => 'string',
-        'email' => 'string', 'age' => 'int', 'deleted_at' => 'timestamp',
-         'created_at' => 'timestamp', 'cell' => 'string', 'gender' =>
-         'string', 'pass' => 'string', 'SubjectCode' => 'string'
-
+        'idNumber' => 'string', 'updated_at' => 'timestamp', 'created_at' => 'timestamp', 'subjectName' => 'string', 'password' => 'string', 'gender' => 'string', 'fullName' => 'string', 'email' => 'string', 'deleted_at' => 'timestamp', 'created_at' => 'timestamp', 'cell' => 'string', 'age' => 'int', 'email' => 'string', 'IDnumber' => 'string', 'name' => 'string', 'password' => 'string', 'age' => 'int', 'surname' => 'string', 'updated_at' => 'timestamp'
     ];
 
     /**
@@ -72,7 +74,7 @@ class Students extends Model
      * @var array
      */
     protected $dates = [
-        'updated_at', 'deleted_at', 'created_at'
+        'updated_at', 'created_at', 'deleted_at', 'created_at', 'updated_at'
     ];
 
     /**

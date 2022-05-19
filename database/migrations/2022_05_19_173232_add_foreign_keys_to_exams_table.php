@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddForeignKeysToMarksTable extends Migration
+class AddForeignKeysToExamsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddForeignKeysToMarksTable extends Migration
      */
     public function up()
     {
-        Schema::table('marks', function (Blueprint $table) {
-            $table->foreign(['SubjectCode'], 'marks_ibfk_1')->references(['SubjectCode'])->on('subjects')->onUpdate('CASCADE')->onDelete('CASCADE');
+        Schema::table('exams', function (Blueprint $table) {
+            $table->foreign(['subjectName'], 'exams_ibfk_1')->references(['SubjectCode'])->on('subjects')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 
@@ -25,8 +25,8 @@ class AddForeignKeysToMarksTable extends Migration
      */
     public function down()
     {
-        Schema::table('marks', function (Blueprint $table) {
-            $table->dropForeign('marks_ibfk_1');
+        Schema::table('exams', function (Blueprint $table) {
+            $table->dropForeign('exams_ibfk_1');
         });
     }
 }
