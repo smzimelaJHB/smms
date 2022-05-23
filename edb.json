@@ -1,0 +1,76 @@
+CREATE DATABASE exp;
+
+USE exp;
+
+CREATE TABLE IF NOT EXISTS schools(
+      schoolName varchar(80) NOT NULL PRIMARY KEY,
+      adress varchar(200) NOT NULL,
+      email varchar(50) NULL UNIQUE,
+      tel varchar(10) NULL UNIQUE
+  );
+
+CREATE TABLE IF NOT EXISTS students (
+      idNumber varchar(13) NOT NULL PRIMARY KEY,
+      fullName varchar(40) NOT NULL,
+      email varchar(20) NOT NULL UNIQUE,
+      cell varchar(10) NOT NULL UNIQUE,
+      gender varchar(2) NOT NULL,
+      password varchar(30) NOT NULL,
+      age int(3) NULL
+);
+
+CREATE TABLE IF NOT EXISTS teachers(
+      employeeID varchar(50) NOT NULL PRIMARY KEY,
+      idNumber varchar(13) NOT NULL UNIQUE,
+      fullName varchar(20) NOT NULL,
+      position varchar(20) NOT NULL,
+      email varchar(20) NOT NULL UNIQUE,
+      cell varchar(10) NOT NULL UNIQUE,
+      gender varchar(2) NOT NULL,
+      password varchar(30) NOT NULL
+)
+
+CREATE TABLE IF NOT EXISTS subjects(
+      SubjectCode varchar(20) NOT NULL PRIMARY KEY,
+      SubjectName varchar(20) NOT NULL,
+      dateID SMALLINT NOT NULL AUTO_INCREMENT,
+      FOREIGN KEY (dateID) REFERENCES dates (id) ON UPDATE CASCADE ON DELETE CASCADE
+  );
+
+CREATE TABLE IF NOT EXISTS dates(
+      id SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
+      deleted_at TIMESTAMP DEFAULT  NULL,
+      updated_at TIMESTAMP DEFAULT  NULL
+    );
+
+
+CREATE TABLE IF NOT EXISTS exams(
+      id SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      grade decimal(3) NULL,
+      subjectName varchar(20) NOT NULL,
+      FOREIGN KEY (subjectName) REFERENCES subjects (subjectCode) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS projects(
+      id SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      projectName varchar(80) NOT NULL,
+      grade decimal(3) NULL,
+      subjectName varchar(20) NOT NULL
+      FOREIGN KEY (subjectName) REFERENCES subjects (subjectCode) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS tests(
+      id SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      grade decimal(3) NULL,
+      subjectName varchar(20) NOT NULL,
+      FOREIGN KEY (subjectName) REFERENCES subjects (subjectCode) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS assessments(
+      id SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      grade decimal(3) NULL,
+      subjectName varchar(20) NOT NULL,
+      FOREIGN KEY (subjectName) REFERENCES subjects (subjectCode) ON UPDATE CASCADE ON DELETE CASCADE
+);
+

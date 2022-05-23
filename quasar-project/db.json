@@ -1,6 +1,8 @@
 CREATE DATABASE school;
 
 USE school;
+//select last record
+// SELECT * FROM dates ORDER BY ID DESC LIMIT 1;
 
 CREATE TABLE IF NOT EXISTS schools(
       schoolName varchar(80) NOT NULL PRIMARY KEY,
@@ -8,17 +10,32 @@ CREATE TABLE IF NOT EXISTS schools(
       email varchar(50) NULL UNIQUE,
       tel varchar(10) NULL UNIQUE,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
-      deleted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
-      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL
+      deleted_at TIMESTAMP  NULL,
+      updated_at TIMESTAMP  NULL
   );
 
+CREATE TABLE IF NOT EXISTS teachers(
+      schoolName varchar(80) NOT NULL,
+      employeeID varchar(50) NOT NULL PRIMARY KEY,
+      idNumber varchar(13) NOT NULL UNIQUE,
+      fullName varchar(20) NOT NULL,
+      position varchar(20) NOT NULL,
+      email varchar(20) NOT NULL UNIQUE,
+      cell varchar(10) NOT NULL UNIQUE,
+      gender varchar(2) NOT NULL,
+      password varchar(30) NOT NULL,
+      FOREIGN KEY (schoolName) REFERENCES schools (schoolName) ON UPDATE CASCADE ON DELETE CASCADE,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
+      deleted_at TIMESTAMP  NULL,
+      updated_at TIMESTAMP  NULL
+);
 
 CREATE TABLE IF NOT EXISTS subjects(
       SubjectCode varchar(20) NOT NULL PRIMARY KEY,
       SubjectName varchar(20) NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
-      deleted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
-      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL
+      deleted_at TIMESTAMP  NULL,
+      updated_at TIMESTAMP  NULL
   );
 
 CREATE TABLE IF NOT EXISTS students (
@@ -27,33 +44,12 @@ CREATE TABLE IF NOT EXISTS students (
       email varchar(20) NOT NULL UNIQUE,
       cell varchar(10) NOT NULL UNIQUE,
       gender varchar(2) NOT NULL,
-      subjectName varchar(20) NULL,
       password varchar(30) NOT NULL,
       age int(3) NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
-      deleted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
-      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
-      FOREIGN KEY (subjectName) REFERENCES subjects (subjectCode) ON UPDATE CASCADE ON DELETE CASCADE
+      deleted_at TIMESTAMP  NULL,
+      updated_at TIMESTAMP  NULL
 );
-
-CREATE TABLE IF NOT EXISTS teachers(
-      employeeID varchar(50) NOT NULL PRIMARY KEY,
-      schoolName varchar(80) NULL,
-      studentName varchar(13) NULL,
-      idNumber varchar(13) NOT NULL UNIQUE,
-      subjectName varchar(20) NOT NULL,
-      position varchar(20) NOT NULL,
-      email varchar(20) NOT NULL UNIQUE,
-      cell varchar(10) NOT NULL UNIQUE,
-      gender varchar(2) NOT NULL,
-      password varchar(30) NOT NULL,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
-      deleted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
-      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
-      FOREIGN KEY (subjectName) REFERENCES subjects (subjectCode) ON UPDATE CASCADE ON DELETE CASCADE,
-      FOREIGN KEY (schoolName) REFERENCES schools (schoolName) ON UPDATE CASCADE ON DELETE CASCADE,
-      FOREIGN KEY (studentName) REFERENCES students (idNumber) ON UPDATE CASCADE ON DELETE CASCADE
-)
 
 
 CREATE TABLE IF NOT EXISTS exams(
@@ -61,8 +57,8 @@ CREATE TABLE IF NOT EXISTS exams(
       grade decimal(3) NULL,
       subjectName varchar(20) NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
-      deleted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
-      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
+      deleted_at TIMESTAMP  NULL,
+      updated_at TIMESTAMP  NULL,
       FOREIGN KEY (subjectName) REFERENCES subjects (subjectCode) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
@@ -72,8 +68,8 @@ CREATE TABLE IF NOT EXISTS projects(
       grade decimal(3) NULL,
       subjectName varchar(20) NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
-      deleted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
-      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
+      deleted_at TIMESTAMP  NULL,
+      updated_at TIMESTAMP  NULL,
       FOREIGN KEY (subjectName) REFERENCES subjects (subjectCode) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
@@ -82,8 +78,8 @@ CREATE TABLE IF NOT EXISTS tests(
       grade decimal(3) NULL,
       subjectName varchar(20) NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
-      deleted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
-      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
+      deleted_at TIMESTAMP  NULL,
+      updated_at TIMESTAMP  NULL,
       FOREIGN KEY (subjectName) REFERENCES subjects (subjectCode) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
@@ -92,7 +88,29 @@ CREATE TABLE IF NOT EXISTS assessments(
       grade decimal(3) NULL,
       subjectName varchar(20) NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
-      deleted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
-      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
+      deleted_at TIMESTAMP  NULL,
+      updated_at TIMESTAMP  NULL,
+      FOREIGN KEY (subjectName) REFERENCES subjects (subjectCode) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS studentSubject(
+      id SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      idNumber varchar(13) NOT NULL,
+      subjectName varchar(20) NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
+      deleted_at TIMESTAMP  NULL,
+      updated_at TIMESTAMP  NULL,
+      FOREIGN KEY (idNumber) REFERENCES students (idNumber) ON UPDATE CASCADE ON DELETE CASCADE,
+      FOREIGN KEY (subjectName) REFERENCES subjects (subjectCode) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS teacherSubject(
+      id SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      employeeID varchar(50) NOT NULL,
+      subjectName varchar(20) NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
+      deleted_at TIMESTAMP  NULL,
+      updated_at TIMESTAMP  NULL,
+      FOREIGN KEY (employeeID) REFERENCES teachers (employeeID) ON UPDATE CASCADE ON DELETE CASCADE,
       FOREIGN KEY (subjectName) REFERENCES subjects (subjectCode) ON UPDATE CASCADE ON DELETE CASCADE
 );

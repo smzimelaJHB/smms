@@ -1,6 +1,8 @@
 <template lang="pug">
 
-q-parallax(src="home.jpg" style="height:800px;")
+//- q-parallax(src="home.jpg" style="height:800px;")
+.school
+  h4(style="display:inline; margin:auto") {{school}}
 
 q-footer.bg-white.text-primary(bordered)
   q-tabs.text-grey(no-caps active-color="primary" indicator-color="transparent" v-model="tab")
@@ -15,10 +17,22 @@ q-footer.bg-white.text-primary(bordered)
 </style>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import axios from 'axios'
 
 const loginImage = ref('home.jpg');
 const tab=  ref('images')
-// const login= ref(to=`/login`)
+const school = ref('')
 
+const getSchool=()=>{
+        axios.get('http://localhost:8000/api/schools').then((response)=>{
+        school.value = response.data.data[0].schoolName;
+        }).catch((e)=>{
+          console.log(e);
+      })
+    }
+
+onMounted(()=>{
+  getSchool();
+})
 </script>
